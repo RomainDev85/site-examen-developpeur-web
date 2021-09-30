@@ -1,0 +1,16 @@
+<!-- Sidebar -->
+<div class="bg-dark border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading d-flex flex-column align-items-center">
+        <img src="<%= userSession.userIMG%>" alt="">
+        <h1 class="text-light"><span><%= userSession.userNAME%></span> <span><%= userSession.userLASTNAME%></span></h1>
+    </div>
+    <div class="list-group list-group-flush">
+      <a href="/" class="list-group-item list-group-item-action bg-dark text-light">Site web <i class="fas fa-door-open"></i></a>
+      <a href="/admin/<%= userSession.userID%>" class="list-group-item list-group-item-action bg-dark text-light">Acceuil administration <i class="fas fa-chart-line"></i></a>
+      <a href="/admin/user" class="list-group-item list-group-item-action bg-dark text-light">Utilisateurs <i class="fas fa-users"></i></a>
+      <a href="/admin/item" class="list-group-item list-group-item-action bg-dark text-light">Articles <i class="fas fa-newspaper"></i></a>
+      <a href="/admin/category" class="list-group-item list-group-item-action bg-dark text-light">Categorie <i class="fas fa-folder-open"></i></a>
+      <a href="/auth/logout" class="list-group-item list-group-item-action bg-dark text-light">Deconnexion <i class="fas fa-sign-out-alt"></i></a>
+    </div>
+  </div>
+  <!-- /#sidebar-wrapper -->

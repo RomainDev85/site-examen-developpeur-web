@@ -1,0 +1,44 @@
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="/"><img src="/images/logo-site3.png" alt=""></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" style="border-color: rgba(255, 255, 255, 1);" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" style="color: #fff !important"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item px-lg-4 d-flex align-items-center">
+          <a class="nav-link text-uppercase text-expanded" href="/#new-post">Actualités récente</a>
+        </li>
+        <li class="nav-item px-lg-4 d-flex align-items-center">
+          <a class="nav-link text-uppercase text-expanded" href="/#category">Sports</a>
+        </li>
+        <!-- If no user start -->
+        <% if(userSession.userID == undefined) { %>
+        <li class="nav-item px-lg-4 d-flex align-items-center">
+          <a class="nav-link text-uppercase text-expanded" href="/auth/login">Connexion</a>
+        </li>
+        <!-- If no user end -->
+        <!-- If user start-->
+        <% } else { %>
+          <% if(userSession.roleID == 1) { %>
+          <li class="nav-item px-lg-4 d-flex align-items-center">
+            <a class="nav-link text-uppercase text-expanded" href="/user/<%= userSession.userID%>"><img class="img-profil" src="<%= userSession.userIMG%>" alt=""><span class="name-profil"><%= userSession.userNAME%></span></a>
+          </li>
+          <li class="nav-item px-lg-4 d-flex align-items-center">
+            <a class="nav-link text-uppercase text-expanded" href="/auth/logout">Déconnexion</a>
+          </li>
+          <% } else { %>
+          <li class="nav-item px-lg-4 d-flex align-items-center">
+            <a class="nav-link text-uppercase text-expanded" href="/admin/<%= userSession.userID%>"><img class="img-profil" src="<%= userSession.userIMG%>" alt=""><span class="name-profil"><%= userSession.userNAME%></span></a>
+          </li>
+          <li class="nav-item px-lg-4 d-flex align-items-center">
+            <a class="nav-link text-uppercase text-expanded" href="/auth/logout">Déconnexion</a>
+          </li>
+          <% } %>
+        <% } %>
+      </ul>
+      <!-- If user end-->
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,158 @@
+html {
+  scroll-behavior: smooth
+}
+li {
+    list-style: none;
+}
+#wrapper {
+    overflow-x: hidden;
+ }
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  transition: margin .25s ease-out;
+}
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+#admin-list-user {
+  min-width: 100vw;
+}
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+.sidebar-heading img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    -o-object-fit: cover;
+       object-fit: cover;
+}
+.sidebar-heading h1 {
+    font-size: 20px;
+    margin-top: 12px
+}
+.sidebar-heading h1 span {
+    text-transform: capitalize;
+}
+#sidebar-wrapper .list-group a {
+    text-align: center;
+}
+#admin-list-user .list-user h1 {
+    text-align: center;
+    background: #000;
+    text-transform: uppercase;
+    font-weight: lighter;
+    border-radius: 6px;
+    padding: 12px 18px;
+    color : white;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: 30px auto;
+}
+#admin-list-user .accordion {
+    margin: 20px 20px;
+}
+#admin-list-user .accordion .card .status-user {
+  position: absolute;
+  right: 8px;
+  top: 5px;
+  display: block;
+  z-index: 99;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+#admin-list-user .accordion .filter-user {
+    margin-bottom: 30px;
+}
+#admin-list-user .accordion .card-header .name-user {
+    text-transform: uppercase;
+    font-size: 25px;
+    color: #000;
+    font-weight: lighter;
+}
+#admin-list-user .accordion .card-header .email {
+    color: #000;
+}
+#admin-list-user .accordion .card-body img {
+    max-width: 240px;
+    max-height: 160px;
+    -o-object-fit: cover;
+       object-fit: cover;
+}
+#admin-list-user .accordion .card .user {
+  padding: 0;
+}
+#admin-list-user .accordion .card-body .status {
+    padding: 0;
+}
+#admin-list-user .accordion .card-body .status span {
+    font-size: 25px;
+}
+#admin-list-user .accordion .card-body .status li {
+    text-align: center;
+}
+#admin-list-user .accordion .card-body .btn {
+    display: flex;
+    flex-direction: column;
+}
+#admin-list-user .accordion .card-body .btn .edit {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    background: #007bff;
+    color: white;
+    padding: 8px 12px;
+    margin: 6px auto;
+    border-radius: 4px;
+}
+#admin-list-user .accordion .card-body .btn .lock {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    color: #000;
+    padding: 8px 12px;
+    margin: 6px auto;
+    border-radius: 4px;
+}
+#admin-list-user .list-post .create-post {
+    background: #fff;
+    border: 3px solid #000;
+    border-radius: 4px;
+    font-size: 20px;
+    padding: 12px 24px;
+}
+#admin-list-user .accordion .card-body .btn .delete {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    background: #dc3545;
+    border: 0;
+    color: white;
+    padding: 8px 12px;
+    margin: 6px auto;
+    border-radius: 4px;
+}
+@media (min-width: 768px) {
+  #admin-list-user .accordion .card .user {
+    padding-left: 40px;
+  }
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #admin-list-user {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}

@@ -1,0 +1,152 @@
+html {
+    scroll-behavior: smooth
+}
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+li {
+    list-style: none;
+}
+a {
+    text-decoration: none !important;
+}
+.back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display:none;
+}
+main {
+    background: rgb(255, 255, 255);
+}
+/* NAVBAR */
+.site-heading {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)) ,url("/images/basketball.jpg");
+    background-size: cover;
+    background-position: top right;
+    height: 400px;
+    text-transform: uppercase;
+    line-height: 1;
+    font-family: 'Raleway';
+}
+.site-heading .site-heading-upper {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    padding-top: 150px;
+}
+.site-heading .site-heading-lower {
+    font-size: 5rem;
+    font-weight: 100;
+    line-height: 4rem;
+    margin-top: 20px;
+}
+  
+.page-section {
+    padding-top: 5rem;
+    margin-bottom: 5rem;
+}
+.section-heading {
+    text-transform: uppercase;
+}
+.section-heading .section-heading-upper {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+.section-heading .section-heading-lower {
+    display: block;
+    font-size: 3rem;
+    font-weight: 100;
+}
+.bg-faded {
+    background-color: rgba(255, 255, 255, 0.80);
+}
+#mainNav {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 1));
+    font-family: 'Raleway';
+}
+#mainNav .navbar-brand {
+    color: #fff;
+}
+#mainNav .navbar-nav .nav-item .nav-link {
+    color: rgba(255, 255, 255, 1);
+    font-weight: 800;
+    padding: 10px 20px;
+    transition: 0.6s;
+    border-radius: 4px;
+}
+#mainNav .navbar-nav .nav-item .nav-link:hover {
+    background: #fff;
+    color: #000;
+}
+#mainNav .navbar-nav .img-profil {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    -o-object-fit: cover;
+       object-fit: cover;
+}
+#mainNav .navbar-nav .name-profil {
+      margin-left: 15px
+}
+.register-page {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)) ,url("/images/surf.jpg");
+    background-position: center;
+    background-size: cover;
+}
+.register-page .register {
+    margin: 100px auto 100px auto;
+    padding: 20px;
+    background: #343a40;
+}
+.register-page .title-login h1 {
+    font-size: 40px;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: lighter;
+}
+.register-page .title-login p {
+    font-size: 20px;
+    color: #fff;
+    margin: 10px auto 40px auto;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bolder;
+}
+.register-page .register label {
+    color: #fff;
+}
+.register-page .select-register {
+    overflow-y: scroll;
+}
+.register-page .btn-register {
+    border: 0px;
+    background-color: #000;
+    border-radius: 8px;
+    border: 2px solid #fff;
+    padding: 6px 12px;
+    margin: 15px 0px;
+    font-size: 22px;
+    color: #fff;
+    transition: 1s;
+}
+.register-page .btn-register:hover {
+    background: #fff;
+    color: #000;
+}
+.register-page input[type = "file"] {
+    background: #fff !important;
+    padding: 4px 4px;
+    border-radius: 4px;
+}
+.footer {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+.footer p {
+    color: white;
+}

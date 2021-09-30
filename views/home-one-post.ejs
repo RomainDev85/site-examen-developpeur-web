@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actus Sportive</title>
+    <%- include("./partials/library-css") -%>
+    <!--CSS-->
+    <link rel="stylesheet" href="/css/home-one-post.css">
+    <%- include("./partials/seo") -%>
+</head>
+<body>
+    <!-- Navbar Complete start -->
+    <div class="site-heading text-center text-white d-none d-lg-block" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(<%=post.image_category%>)">
+        <h2 class="site-heading-upper" style="font-size: 60px;"><%= post.category%></h2>
+    </div>
+    
+    <%- include("./partials/navbar") -%>
+      <!-- Navbar Complete end-->
+
+      <main class="home-one-post">
+
+        <!-- Post start -->
+        <h1 class="title-category"><%= post.category%></h1>
+        <section class="page-section about-heading card-post">
+            <div class="container">
+              <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0 shadow-lg mb-5 bg-white rounded" src="<%= post.image%>" alt="">
+              <div class="about-heading-content">
+                <div class="row">
+                  <div class="col-xl-9 col-lg-10 mx-auto">
+                    <div class="bg-faded rounded p-4">
+                      <h2 class="section-heading mb-4">
+                          <span class="section-heading-lower"><%= post.title%></span>
+                          <span class="section-heading-upper"><%= post.firstname%> <%= post.lastname%></span>
+                      </h2>
+                      <p><%= post.content%></p>
+                      <hr>
+                      <div class="status d-flex flex-rows justify-content-between flex-wrap">
+                          <ul style="margin: auto;">
+                              <li><button type="button" data-toggle="modal" data-target="#list-like"><span><%= post.good_status%></span> Personnes aime l'article <i class="fas fa-hand-pointer"></i></button></li>
+                              <li><button type="button" data-toggle="modal" data-target="#list-dislike"><span><%= post.bad_status%></span> Personnes n'aiment pas l'article <i class="fas fa-hand-pointer"></i></button></li>
+                          </ul>
+                          <div class="btn-status d-flex flex-column align-items-center">
+                              <a href="/user/like/<%= post.id_post%>" class="like">J'aime <i class="fas fa-thumbs-up"></i></a>
+                              <a href="/user/dislike/<%= post.id_post%>" class="dislike">Je n'aime pas <i class="fas fa-thumbs-down"></i></a>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        <!-- Post end -->
+
+
+        <!-- Modal like start -->
+        <div class="modal fade modal-like" id="list-like" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Les personnes qui aiment cet article</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              </div>
+              <div class="modal-body">
+
+                <% if (good_status.length !== 0) { %>
+                <% good_status.forEach(function(entry) {%>
+                  <div class="profil d-flex align-items-center">
+                      <img src="<%= entry.image_profil%>" alt="">
+                      <p><%= entry.firstname%> <%= entry.lastname%></p>
+                  </div>
+                <%});%>
+                <% } else { %>
+                    <p>Personne n'aime l'article</p>
+                <% } %>
+
+              </div>
+              <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              </div>
+          </div>
+          </div>
+      </div>
+        <!-- Modal like end-->
+
+        <!-- Modal dislike start -->
+        <div class="modal fade modal-dislike" id="list-dislike" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Les personnes qui n'aiment pas cet article</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              </div>
+              <div class="modal-body">
+               
+                    <% if (bad_status.length !== 0) { %>
+                    <% bad_status.forEach(function(entry) {%>
+                      <div class="profil d-flex align-items-center">
+                          <img src="<%= entry.image_profil%>" alt="">
+                          <p><%= entry.firstname%> <%= entry.lastname%></p>
+                      </div>
+                    <%});%>
+                    <% } else { %>
+                        <p>Personne n'aiment pas l'article</p>
+                    <% } %>
+
+              </div>
+              <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              </div>
+          </div>
+          </div>
+      </div>
+        <!-- Modal dislike end -->
+
+      </main>
+
+      <!-- Button to top start -->
+      <button onclick="topFunction()" style="display: none;" id="myBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+      <!-- Button to top end -->
+      
+      <!--Footer start-->
+      <footer class="footer text-faded text-center py-5">
+        <div class="container">
+          <p class="m-0 small">Copyright &copy; Actus Sportives, created by Romain Aubry</p>
+        </div>
+      </footer>
+      <!-- Footer end -->
+
+      <%- include("./partials/library-js") -%>
+    <script type="text/javascript">
+      //Get the button
+      var mybutton = document.getElementById("myBtn");
+
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function() {scrollFunction()};
+
+      function scrollFunction() {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+          mybutton.style.display = "block";
+      } else {
+          mybutton.style.display = "none";
+      }
+      }
+
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+      }
+  </script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actus Sportive</title>
+    <%- include("./partials/library-css") -%>
+    <!--CSS-->
+    <link rel="stylesheet" href="/css/admin-home-page.css">
+    <%- include("./partials/seo") -%>
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+
+        <%- include("./partials/sidebar") -%>
+    
+        <!-- Page Content -->
+        <div id="admin-first-page">
+    
+          <nav class="navbar navbar-expand-lg navbar-light bg-dark border-bottom">
+            <button class="btn btn-secondary border border-light" id="menu-toggle"><i class="fas fa-bars"></i></button>
+          </nav>
+          
+        <div class="container" style="padding-top: 30px;">
+            <%- include("./partials/message") -%>
+        </div>
+
+          <!-- Stat area start -->
+        <section class="container">
+            <h1>Espace administration</h1>
+            <div class="row stat-web-site">
+                <div class="col-xl-4 d-flex justify-content-center">
+                    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center">
+                          <h2 class="card-title">Utilisateurs</h5>
+                          <h3 class="card-subtitle mb-2 text-muted">Total d'utilisateur inscrit:</h6>
+                          <p class="card-text"><%= users.nb_user%></p>
+                          <a href="/admin/user" class="card-link align-self-center">Afficher la liste</a>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-xl-4  d-flex justify-content-center">
+                    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center">
+                          <h2 class="card-title">Articles</h5>
+                          <h3 class="card-subtitle mb-2 text-muted">Le nombre d'articles:</h6>
+                          <p class="card-text"><%= posts.nb_post%></p>
+                          <a href="/admin/item" class="card-link">Afficher la liste</a>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-xl-4  d-flex justify-content-center">
+                    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column align-items-center">
+                          <h2 class="card-title">Categories</h5>
+                          <h3 class="card-subtitle mb-2 text-muted">Nombre de categories:</h6>
+                          <p class="card-text"><%= category.nb_category%></p>
+                          <a href="/admin/category" class="card-link">Afficher la liste</a>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </section>
+        <!-- Stat area end -->
+
+        <!-- Form create category start -->
+        <section class="container creat-category">
+            <h1>Cree une categorie</h1>
+            <div class="col-md-12">
+                <form class="form-category shadow-lg p-3 mb-5 bg-white rounded" action="/admin/category" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Titre de la categorie</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Ajoutez une description de la catégorie</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Description catégorie" name="content"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Illustrer la catégorie</label>
+                        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="image">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Crée la categorie</button>
+                </form>
+            </div>
+        </section>
+        <!-- Form create category end -->
+
+        <!-- Form create post start -->
+        <section class="container creat-post" id="create-post">
+            <h1>Cree un article</h1>
+            <div class="col-md-12">
+                <form class="form-post shadow-lg p-3 mb-5 bg-white rounded" action="/admin/item" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Titre de l'article</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Titre" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Catégorie</label>
+                        <select class="form-control" id="exampleFormControlSelect1" name="category">
+                          <option value="null">Sélectionner une catégorie</option>
+                          <% categories.forEach(function(entry) {%>
+                          <option value="<%= entry.id%>"><%= entry.title%></option>
+                          <%});%>
+                        </select>
+                      </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Ajoutez le contenu de l'article'</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Contenu de l'article" name="content"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Illustrer l'article</label>
+                        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="image">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Crée l'article</button>
+                </form>
+            </div>
+        </section>
+        <!-- Form create post end -->
+
+        <!-- Card user profil start -->
+        <section class="user">
+            <h1 class="title-page">Votre compte</h1>
+            <div class="page-content page-container" id="page-content">
+                  <div class="container padding">
+                      <div class="container d-flex justify-content-center" style="margin: 0 !important;">
+                          <div class="col-xl-12 col-md-12">
+                              <div class="card user-card-full shadow mb-5 bg-white rounded">
+                                  <div class="row m-l-0 m-r-0">
+                                      <div class="col-lg-4 bg-c-lite-green user-profile">
+                                          <div class="card-block text-center text-white">
+                                              <div class="m-b-25"> <img src="<%= profil.image %>" class="img-radius" alt="User-Profile-Image"> </div>
+                                              <ul class="activity">
+                                                  <li><span><%= profil.status %></span> Réaction d'article</li>
+                                                  <li><span><%= profil.nb_item %></span> Article crée</li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="col-lg-8" style="padding: 0px !important;">
+                                          <div class="card-block">
+                                              <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information du compte</h6>
+                                              <div class="row">
+                                                  <div class="col-sm-6">
+                                                      <p class="m-b-10 f-w-600">Prénom</p>
+                                                      <h6 class="text-muted f-w-400"><%= profil.firstname %></h6>
+                                                  </div>
+                                                  <div class="col-sm-6">
+                                                      <p class="m-b-10 f-w-600">Nom</p>
+                                                      <h6 class="text-muted f-w-400"><%= profil.lastname %></h6>
+                                                  </div>
+                                              </div>
+                                              <div class="row">
+                                                <div class="col-sm-6">
+                                                    <p class="m-b-10 f-w-600">Email</p>
+                                                    <h6 class="text-muted f-w-400"><%= profil.email %></h6>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <p class="m-b-10 f-w-600">Date de naissance</p>
+                                                    <h6 class="text-muted f-w-400"><%= profil.birthday %></h6>
+                                                </div>
+                                            </div>
+                                            <h6 class="m-b-20 p-b-5 b-b-default f-w-600" style="margin-top: 15px;">Modifier le profil</h6>
+                                            <div class="d-flex btn-edit-profil">
+                                              <button type="button" data-toggle="modal" data-target="#change-picture" class="btn" style="background: rgba(0, 0, 0, 0.9);color: #fff">Changer d'image</button>
+                                              <button type="button" data-toggle="modal" data-target="#change-profil" class="btn" style="background: rgba(0, 0, 0, 0.9);color: #fff">Changer d'information</button>
+                                              <button type="button" data-toggle="modal" data-target="#change-password" class="btn" style="background: rgba(0, 0, 0, 0.9);color: #fff">Changer mot de passe</button>
+                                            </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+          <!-- Card user profil end -->
+
+
+        </div>
+        <!-- /#page-content-wrapper -->
+    
+      </div>
+      <!-- /#wrapper -->
+
+
+      <%- include("./partials/library-js") -%>
+    <script>
+        $("#menu-toggle").click(function(e) {
+          e.preventDefault();
+          $("#wrapper").toggleClass("toggled");
+        });
+      </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actus Sportive</title>
+    <%- include("./partials/library-css") -%>
+    <!--CSS-->
+    <link rel="stylesheet" href="/css/home-filter-category.css">
+    <%- include("./partials/seo") -%>
+</head>
+<body>
+    <!-- Navbar Complete start -->
+    <div class="site-heading text-center text-white d-none d-lg-block" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(<%=category.image%>)">
+        <h2 class="site-heading-upper" style="font-size: 60px;"><%= category.title%></h2>
+    </div>
+    
+    <%- include("./partials/navbar") -%>
+      <!-- Navbar Complete end-->
+
+      <main class="filter-by-category">
+
+        <h1 class="title-category"><%= category.title %></h1>
+
+        <% if (posts.length !== 0) { %>
+        <% posts.forEach(function(entry) {%>
+        <!-- One post start -->
+        <section class="page-section">
+            <div class="container">
+              <div class="product-item">
+                <div class="product-item-title d-flex">
+                  <div class="bg-faded p-3 d-flex mr-auto rounded">
+                    <h2 class="section-heading mb-0">
+                        <span class="section-heading-lower"><%= entry.title%></span>
+                        <span class="section-heading-upper"><%= entry.firstname%> <%= entry.lastname%></span>
+                    </h2>
+                  </div>
+                </div>
+                <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="<%= entry.image%>" alt="">
+                <div class="product-item-description d-flex justify-content-end ml-auto">
+                  <div class="bg-faded p-3 rounded">
+                    <ul class="status-post d-flex flex-column align-items-center">
+                        <li><span><%= entry.good_status%></span> J'aime <i class="fas fa-thumbs-up"></i></li>
+                        <li><span><%= entry.bad_status%></span> Je n'aime pas <i class="fas fa-thumbs-down"></i></li>
+                    </ul>
+                    <a href="/articles/<%= entry.id_category%>/<%= entry.id_post%>" class="access-post">Lire l'article et réagir</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
+        <!-- One post end -->
+        <%});%>
+        <% } else { %>
+          <div class="no-post container d-flex flex-column justify-content-center align-items-center">
+            <h2 style="text-align: center;">La categorie ne possede pas d'article.</h2>
+            <% if(userSession.userID !== undefined) { %>
+              <% if(userSession.roleID == 1) { %>
+                <a href="/user/<%= userSession.userID%>/#post" style="background: #007bff; color: #fff; padding: 8px 12px;border-radius: 4px;margin-top: 10px;">Crée un article</a>
+              <% } else { %>
+                <a href="/admin/<%= userSession.userID%>/#create-post" style="background: #007bff; color: #fff; padding: 8px 12px;border-radius: 4px;margin-top: 10px;">Crée un article</a>
+              <% } %>
+            <% } else { %>
+            <a href="/auth/login" style="background: #007bff; color: #fff; padding: 8px 12px;border-radius: 4px;margin-top: 10px;">Connectez vous et crée un article</a>
+            <% } %>
+          </div>
+        <% } %>
+        
+
+        <!-- Button to top start -->
+        <button onclick="topFunction()" style="display: none;" id="myBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+        <!-- Button to top end -->
+        
+        <!-- Footer start-->
+        <!-- <footer class="footer text-faded text-center py-5" style="position: absolute; bottom: 0px; width: 100%">
+          <div class="container">
+            <p class="m-0 small">Copyright &copy; Actus Sportives, created by Romain Aubry</p>
+          </div>
+        </footer> -->
+        <!-- Footer end -->
+      </main>
+
+
+      <%- include("./partials/library-js") -%>
+    <script type="text/javascript">
+      //Get the button
+      var mybutton = document.getElementById("myBtn");
+
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function() {scrollFunction()};
+
+      function scrollFunction() {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+          mybutton.style.display = "block";
+      } else {
+          mybutton.style.display = "none";
+      }
+      }
+
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+      }
+  </script>
+</body>
+</html>

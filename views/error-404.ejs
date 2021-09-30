@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actus Sportive</title>
+    <%- include("./partials/library-css") -%>
+    <!--CSS-->
+    <link rel="stylesheet" href="/css/error-404.css">
+    <%- include("./partials/seo") -%>
+</head>
+<body>
+    Tu cherches à allez sur Actus Sportive ?
+    Tu te trompe de chemin !
+
+    <%- include("./partials/library-js") -%>
+    <script>
+        setTimeout(function(){
+            window.location.href = 'http://localhost:3000';
+         }, 5000);
+    </script>
+</body>
+</html>

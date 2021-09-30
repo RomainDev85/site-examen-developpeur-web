@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actus Sportive</title>
+    <%- include("./partials/library-css") -%>
+    <!--CSS-->
+    <link rel="stylesheet" href="/css/admin-post-list.css">
+    <%- include("./partials/seo") -%>
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+
+        <%- include("./partials/sidebar") -%>
+    
+        <!-- Page Content -->
+        <div id="admin-list-post">
+    
+          <nav class="navbar navbar-expand-lg navbar-light bg-dark border-bottom">
+            <button class="btn btn-secondary border border-light" id="menu-toggle"><i class="fas fa-bars"></i></button>
+          </nav>
+    
+          <!-- List post start -->
+          <section class="container list-post">
+            <div style="margin: 0 20px;">
+              <h1>Liste des articles</h1>
+            </div>
+
+            <div class="container">
+                <%- include("./partials/message") -%>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+
+                <!-- Filter post start -->
+                <div class="filter-post d-flex flex-column">
+                    <label for="filter-post"><i class="fas fa-search"></i> Filtrer les articles</label>
+                    <input type="text" id="myInput" name="filter-post" onkeyup="myFunction()" placeholder="Cherchez un article" style="max-width: 300px;">
+                </div>
+                <!-- Filter post end -->
+
+                <% items.forEach(function(entry) {%>
+                <!-- One post start -->
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                    <% if (entry.status_item == 1) { %>
+                        <span class="status-post"><i class="fas fa-circle text-success"></i></span>
+                    <% } else { %>
+                        <span class="status-post"><i class="fas fa-circle text-warning"></i></span>
+                    <% } %>
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse<%= entry.id%>" aria-expanded="true" aria-controls="collapseOne">
+                      <ul class="user">
+                          <li class="title-post"><i class="fas fa-arrow-circle-down"></i> <%= entry.title%></li>
+                          <li class="category"><%= entry.category%></li>
+                      </ul>
+                    </button>
+                  </h2>
+                </div>
+            
+                <div id="collapse<%= entry.id%>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-4 d-flex justify-content-center align-items-center">
+                          <img src="<%= entry.image%>" class="img-fluid rounded about-heading-img mb-3 mb-lg-0 shadow mb-5 bg-white rounded" alt="">
+                        </div>
+                        <div class="col-xl-8">
+                            <p><%= entry.content%></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-4 d-flex align-items-center justify-content-center" style="padding: 10px 30px;">
+                            <p>Crée le <%= entry.date%>.<br>Par <%= entry.firstname%> <%= entry.lastname%></p>
+                          </div>  
+                          <div class="col-xl-4 d-flex align-items-center justify-content-center">
+                              <ul class="status">
+                                  <li><span><%= entry.good_status%></span> J'aime</li>
+                                  <li><span><%= entry.bad_status%></span> Je n'aime pas</i></li>
+                              </ul>
+                          </div>
+                          <div class="col-xl-4 btn">
+                              <a class="edit" href="/admin/edit/post/<%= entry.id%>">Modifier l'article</a>
+                              <% if (entry.status_item == 1) { %>
+                              <a class="lock bg-warning text-dark" href="/admin/item/<%= entry.id %>/status">Masqué</a>
+                              <% } else { %>
+                              <a class="lock bg-success text-white" href="/admin/item/<%= entry.id %>/status">Affiché</a>
+                              <% } %>
+                              <form action="/admin/delete/item/<%= entry.id%>?_method=DELETE" method="POST">
+                                <button type="submit" class="delete">Supprimer</button>
+                              </form>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- One post end -->
+              <%});%>
+            </div>
+        </section>
+    <!-- List post end -->
+
+
+
+        </div>
+        <!-- /#page-content-wrapper -->
+    
+      </div>
+      <!-- /#wrapper -->
+
+
+      <%- include("./partials/library-js") -%>
+    <script>
+        $("#menu-toggle").click(function(e) {
+          e.preventDefault();
+          $("#wrapper").toggleClass("toggled");
+        });
+
+        function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("accordionExample");
+        tr = document.getElementsByClassName("title-post");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i]
+            if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].parentElement.parentElement.parentElement.parentElement.style.display = "";
+            } else {
+                tr[i].parentElement.parentElement.parentElement.parentElement.style.display = "none";
+            }
+            }
+        }
+}
+      </script>
+</body>
+</html>

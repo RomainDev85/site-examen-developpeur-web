@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actus Sportive</title>
+    <%- include("./partials/library-css") -%>
+    <!--CSS-->
+    <link rel="stylesheet" href="/css/user-home-page.css">
+    <%- include("./partials/seo") -%>
+</head>
+<body>
+    <!-- Navbar Complete start -->
+    <div class="site-heading text-center text-white d-none d-lg-block" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/images/naturalpicture4.jpg)">
+        <h2 class="site-heading-upper" style="font-size: 60px;">Votre espace personnel</h2>
+    </div>
+    
+    <%- include("./partials/navbar") -%>
+      <!-- Navbar Complete end-->
+
+      <main class="user-home-page">
+
+        <div class="container message-errorOrSuccess" style="padding-top: 30px;">
+            <%- include("./partials/message") -%>
+        </div>
+
+        <!-- Card user profil start -->
+          <section class="user">
+            <h1 class="title-page">Votre espace personnel</h1>
+            <div class="page-content page-container" id="page-content">
+                  <div class="container padding">
+                      <div class="container d-flex justify-content-center" style="margin: 0 !important;">
+                          <div class="col-xl-12 col-md-12">
+                              <div class="card user-card-full shadow mb-5 bg-white rounded">
+                                  <div class="row m-l-0 m-r-0">
+                                      <div class="col-md-4 bg-c-lite-green user-profile">
+                                          <div class="card-block text-center text-white">
+                                              <div class="m-b-25"> <img src="<%= profil.image %>" class="img-radius" alt="User-Profile-Image"> </div>
+                                              <ul class="activity">
+                                                  <li><span><%= profil.status %></span> Réaction d'article</li>
+                                                  <li><span><%= profil.nb_item %></span> Article crée</li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-8" style="padding: 0px !important;">
+                                          <div class="card-block">
+                                              <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information du compte</h6>
+                                              <div class="row">
+                                                  <div class="col-sm-6">
+                                                      <p class="m-b-10 f-w-600">Prénom</p>
+                                                      <h6 class="text-muted f-w-400"><%= profil.firstname %></h6>
+                                                  </div>
+                                                  <div class="col-sm-6">
+                                                      <p class="m-b-10 f-w-600">Nom</p>
+                                                      <h6 class="text-muted f-w-400"><%= profil.lastname %></h6>
+                                                  </div>
+                                              </div>
+                                              <div class="row">
+                                                <div class="col-sm-6">
+                                                    <p class="m-b-10 f-w-600">Email</p>
+                                                    <h6 class="text-muted f-w-400"><%= profil.email %></h6>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <p class="m-b-10 f-w-600">Date de naissance</p>
+                                                    <h6 class="text-muted f-w-400"><%= profil.birthday %></h6>
+                                                </div>
+                                            </div>
+                                            <h6 class="m-b-20 p-b-5 b-b-default f-w-600" style="margin-top: 15px;">Modifier le profil</h6>
+                                            <div class="d-flex btn-edit-profil">
+                                              <button type="button" data-toggle="modal" data-target="#change-picture" class="btn" style="background: rgba(0, 0, 0, 0.9);color: #fff">Changer d'image</button>
+                                              <button type="button" data-toggle="modal" data-target="#change-profil" class="btn" style="background: rgba(0, 0, 0, 0.9);color: #fff">Changer d'information</button>
+                                              <button type="button" data-toggle="modal" data-target="#change-password" class="btn" style="background: rgba(0, 0, 0, 0.9);color: #fff">Changer mot de passe</button>
+                                              <button type="button" data-toggle="modal" data-target="#delete-account" class="btn" style="background: #dc3545;color: #fff">Supprimer le compte</button>
+                                            </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+          <!-- Card user profil end -->
+
+          <!-- Modal change image start -->
+          <div class="modal fade" id="change-picture" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form method="POST" action="/user/edit/profil/<%= userSession.userID%>/image?_method=PUT" enctype="multipart/form-data">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Changer d'image</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="file" name="image">
+                    </div>
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                </form>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+            </div>
+        </div>
+          <!-- Modal change image end -->
+
+          <!-- Modal edit profil start -->
+          <div class="modal fade" id="change-profil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form method="POST" action="/user/edit/profil/<%= userSession.userID%>?_method=PUT" enctype="multipart/form-data">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Changer information du profil</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6 d-flex flex-column">
+                                    <label for="">Prénom</label>
+                                    <input type="text" class="form-control" placeholder="Votre prénom" name="firstname" value="<%= profil.firstname %>">
+                                </div>
+                                <div class="col-md-6 d-flex flex-column">
+                                    <label for="">Nom</label>
+                                    <input type="text" name="lastname" class="form-control" placeholder="Votre nom" value="<%= profil.lastname %>">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-12"> 
+                                    <label class="control-label" for="date">Date de naissance</label>
+                                    <input class="form-control" id="date" name="birthday" placeholder="JJ/MM/AAAA" type="date"/>
+                                  </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 d-flex flex-column">
+                                    <label for="">Email</label>
+                                    <input type="text" name="email" class="form-control" placeholder="Votre email" value="<%= profil.email %>">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Modifier</button>
+                    </form>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+            </div>
+        </div> 
+          <!-- Modal edit profil end -->
+
+
+          <!-- Modal edit password start -->
+          <div class="modal fade" id="change-password" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form method="POST" action="/user/edit/profil/<%= userSession.userID%>/password?_method=PUT" enctype="multipart/form-data">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Changer votre mot de passe</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 d-flex flex-column">
+                                <label for="">Choisissez votre mot de passe</label>
+                                <input type="password" class="form-control" name="password">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 d-flex flex-column">
+                                <label for="">Confirmer</label>
+                                <input type="password" class="form-control" name="password2">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                </form>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+            </div>
+        </div>
+          <!-- Modal edit password end -->
+
+          <!-- Modal delete account start -->
+            <div class="modal fade" id="delete-account" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                  <form method="POST" action="/user/<%= profil.id %>?_method=DELETE">
+                      <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Supprimer le compte</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                      </div>
+                      <div class="modal-body">
+                          <p>Etes vous vraiment sur de vouloir supprimer votre compte ?<br>Vous ne pourrez plus faire marche arrière.</p>
+                      </div>
+                      <div class="modal-footer">
+                      <button type="submit" class="btn btn-danger">Supprimer</button>
+                  </form>
+                      <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
+                  </div>
+              </div>
+              </div>
+          </div>
+          <!-- Modal delete account end -->
+          
+          <!-- List post start -->
+          <section class="list-post" id="post">
+              <div style="margin: 0 20px;">
+                <h1>Les articles que vous avez crée !</h1>
+              </div>
+
+              <% if (posts.length > 0) { %>
+              <div class="accordion" id="accordionExample">
+
+                <% posts.forEach(function(entry) {%>
+                <!-- One post start -->
+                <div class="card">
+                  <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse<%= entry.id_post %>" aria-expanded="true" aria-controls="collapseOne">
+                        <ul>
+                            <li class="title"><i class="fas fa-arrow-circle-down"></i> <%= entry.title %></li>
+                            <li class="category"><%= entry.category %></li>
+                        </ul>
+                      </button>
+                    </h2>
+                  </div>
+              
+                  <div id="collapse<%= entry.id_post %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                      <div class="row">
+                          <div class="col-md-4 d-flex justify-content-center">
+                            <img src="<%= entry.image %>" class="img-fluid rounded about-heading-img mb-3 mb-lg-0 shadow mb-5 bg-white rounded" alt="">
+                          </div>
+                          <div class="col-md-8" style="padding: 10px 30px;">
+                            <p><%= entry.content %></p>
+                          </div>    
+                      </div>
+                      <ul class="status">
+                          <li><span><%= entry.good_status %></span> J'aime <i class="fas fa-thumbs-up"></i></li>
+                          <li><span><%= entry.bad_status %></span> Je n'aime pas <i class="fas fa-thumbs-down"></i></li>
+                      </ul>
+                      <div class="btn">
+                        <form method="POST" action="/user/item/<%= entry.id_post %>?_method=DELETE">
+                            <button class="delete">Supprimer</button>
+                        </form>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- One post end -->
+                <%});%>
+              </div>
+              <% } %>
+              <div class="container d-flex justify-content-center">
+                <button type="button" class="create-post" data-toggle="modal" data-target="#create-post">Crée un article</button>
+              </div>
+          </section>
+          <!-- List post end -->
+
+          <!-- Modal create post start -->
+          <div class="modal fade" id="create-post" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="padding: 0;">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <form action="/user/item/<%= profil.id %>" method="POST" enctype="multipart/form-data">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Crée votre propre article.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 d-flex flex-column">
+                                <label for="">Titre de votre article</label>
+                                <input type="text" name="title">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="inputState">Categorie</label>
+                                <select id="inputState" class="form-control" name="category">
+                                <option selected value="null">Selectionner une catégorie</option>
+                                <% categories.forEach(function(entry) {%>
+                                    <option value="<%= entry.id%>"><%= entry.title%></option>
+                                <%});%>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 d-flex flex-column">
+                              <label for="exampleFormControlTextarea1">Contenu de l'article</label>
+                              <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="content"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 d-flex flex-column">
+                            <label for="image">Choisir l'image d'article</label>
+                            <input type="file" name="image">
+                          </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </form>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+            </div>
+        </div> 
+          <!-- Modal create post end -->
+
+          <!-- List status post start -->
+          <section class="list-status">
+            <div style="margin: 0 20px;">
+                <h1>Les articles auquels vous avez réagis</h1>
+            </div>
+            <div class="container">
+                <table class="table shadow p-3 mb-5 bg-white rounded">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Votre avis</th>
+                        <th scope="col">Effacer</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <% listStatus.forEach(function(entry) {%>
+                      <tr>
+                        <th scope="row"><a href="/articles/<%= entry.id_category%>/<%= entry.id_post%>" class="title"><%= entry.title%></a></th>
+                        <% if (entry.good === 1) { %>
+                        <td><i class="fas fa-thumbs-up"></i></td>
+                        <% } else { %>
+                        <td><i class="fas fa-thumbs-down"></i></td>
+                        <% } %>
+                        <td><a href="/user/delete-status/<%= entry.id_post%>" class="action">Retirer</a></td>
+                      </tr>
+                    <%});%>
+                    </tbody>
+                  </table>
+            </div>
+          </section>
+          <!-- List status post end -->
+          
+          <!-- Button to top start -->
+          <button onclick="topFunction()" style="display: none;" id="myBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+          <!-- Button to top end -->
+      </main>
+
+      <!--Footer start-->
+      <footer class="footer text-faded text-center py-5">
+        <div class="container">
+          <p class="m-0 small">Copyright &copy; Actus Sportives, created by Romain Aubry</p>
+        </div>
+      </footer>
+      <!-- Footer end -->
+
+      <%- include("./partials/library-js") -%>
+    <script type="text/javascript">
+        //Get the button
+        var mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        }
+    </script>
+</body>
+</html>

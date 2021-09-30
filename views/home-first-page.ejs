@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actus Sportive</title>
+    <%- include("./partials/library-css") -%>
+    <!--CSS-->
+    <link rel="stylesheet" href="/css/home-first-page.css">
+    <%- include("./partials/seo") -%>
+</head>
+<body>
+    <!-- Navbar Complete start -->
+    <div class="site-heading text-center text-white d-none d-lg-block">
+        <h1 class="site-heading-upper text-white mb-3">Information pour l'utilisateur, par l'utilisateur !</h1>
+        <img src="/images/logo-site3.png" alt="">
+    </div>
+    
+    <%- include("./partials/navbar") -%>
+      <!-- Navbar Complete end-->
+
+      <main class="home-page">
+          <!-- Eye Catcher start -->
+      <section class="page-section clearfix">
+        <div class="container">
+          <div class="intro">
+            <img class="intro-img img-fluid mb-3 mb-lg-0 rounded shadow mb-5 bg-white rounded" src="/images/natation.jpg" alt="">
+            <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+              <h2 class="section-heading mb-4">
+                <span class="section-heading-upper">Actus Sportives</span>
+              </h2>
+              <p class="mb-3">Bienvenue sur Actus Sportives. Ici vous trouverez toutes l'actualités sportives récente (ou moins récente). Vous pourrez également rédiger vos articles et maintenir les autres lecteurs à jour. N'hésitez pas a réagir au article également!</p>
+              <div class="intro-button mx-auto">
+                <a class="btn btn-xl" href="/auth/register">Inscrivez vous!</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Eye Catcher end -->
+
+      <!-- New post start -->
+      <section class="page-section about-heading" id="new-post">
+        <h1 style="margin: 0 auto 30px auto; background: #000; width: max-content; color: #fff; padding: 8px 12px; border-radius: 6px; font-weight: lighter;">Articles récents</h1>
+
+        <% posts.forEach(function(entry) {%>
+        <div class="container card-new-post">
+          <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0 shadow mb-5 bg-white rounded" src="<%= entry.image%>" alt="Image de l'article">
+          <div class="about-heading-content">
+            <div class="row">
+              <div class="col-xl-9 col-lg-10 mx-auto">
+                <div class="bg-faded rounded p-3">
+                  <h2 class="section-heading mb-4">
+                    <span class="section-heading-lower"><%= entry.category%></span>
+                    <span class="section-heading-upper"><%= entry.title%></span>
+                  </h2>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <ul class="status-new-post">
+                        <li><span><%= entry.good_status%></span> J'aime <i class="fas fa-thumbs-up"></i></li>
+                        <li><span><%= entry.bad_status%></span> Je n'aime pas <i class="fas fa-thumbs-down"></i></li>
+                    </ul>    
+                    <a href="/articles/<%= entry.id_category%>/<%= entry.id%>">Lire l'article</a>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%});%>
+
+      </section>
+      <!-- New post end -->
+
+      <!-- Choice category start -->
+      <section class="category" id="category">
+          <div class="container d-flex flex-column align-items-center">
+              <div class="text" style="background: #000;padding: 8px 12px; border-radius: 8px;margin-bottom: 30px;">
+                <h1 style="text-transform: uppercase; font-weight: lighter; text-align: center;color: #fff;">Affiner votre recherche</h1>
+                <hr style="border: 1px solid #fff; width: 50px;">
+                <h2 style="font-weight: bolder; text-transform: uppercase;text-align: center;color: #fff;">Choisissez la catégorie qui vous intéresse</h2>
+              </div>
+              <ul class="d-flex flex-column align-items-center p-0">
+                <% categories.forEach(function(entry) {%>
+                  <li><a href="/articles/<%= entry.id%>" style="text-transform: capitalize;"><%= entry.title%></a></li>
+                <%});%>
+              </ul>
+          </div>
+      </section>
+      <!-- Choice category end -->
+
+      <!-- Button to top start -->
+      <button onclick="topFunction()" style="display: none;" id="myBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
+      <!-- Button to top end -->
+      
+      </main>
+
+      <footer class="footer text-faded text-center py-5">
+        <div class="container">
+          <p class="m-0 small">Copyright &copy; Actus Sportives, created by Romain Aubry</p>
+        </div>
+      </footer>
+
+      <%- include("./partials/library-js") -%>
+    <script type="text/javascript">
+
+        //Get the button
+        var mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        }
+        
+    </script>
+</body>
+</html>

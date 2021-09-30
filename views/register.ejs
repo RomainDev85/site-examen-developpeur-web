@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actus Sportive</title>
+    <%- include("./partials/library-css") -%>
+    <!--CSS-->
+    <link rel="stylesheet" href="/css/register.css">
+    <%- include("./partials/seo") -%>
+</head>
+<body>
+    <!-- Navbar Complete start -->
+    <div class="site-heading text-center text-white d-none d-lg-block">
+        <h1 class="site-heading-upper text-white mb-3">Informé par l'utilisateur, pour l'utilisateur !</h1>
+        <img src="/images/logo-site3.png" alt="">
+    </div>
+    
+    <%- include("./partials/navbar") -%>
+      <!-- Navbar Complete end-->
+
+      <main class="register-page">
+        
+        <!-- Register form start -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 card-register">
+                    <!--Form register-->
+                    <form class="register" action="/auth/register" method="POST" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-12 title-login">
+                                <h1>Inscription</h1>
+                                <p>N'hésitez pas, rejoignez l'équipe !</p>
+                            </div>
+                        </div>
+
+                        <%- include("./partials/message") -%>
+    
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Prénom</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrez votre prénom" name="firstname" value="">
+                                  </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Nom</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrez votre nom" name="lastname" value="">
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 d-flex flex-column justify-content-between">
+                                <!-- <label for="birthday">Date de naissance</label>
+                                <div class="row d-flex" id="birthday" style="flex-wrap: nowrap;">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Date" name="day" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Mois" name="month">
+                                          </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Année" name="year" value="">
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="form-group"> 
+                                    <label class="control-label" for="date">Date d'anniversaire</label>
+                                    <input class="form-control" id="date" name="birthday" placeholder="JJ/MM/AAAA" type="date"/>
+                                </div>
+                            </div>
+                            <div class="col-md-6 d-flex flex-column">
+                                    <label for="exampleInputEmail1">Image de profil</label>
+                                    <input type="file" class="input-file" name="image">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Email</label>
+                                    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Entrez votre email" name="email">
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Mot de passe</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Choisissez votre mot de passe" name="password">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Confirmation</label>
+                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirmez votre mot de passe" name="password2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col text-center">
+                            <button type="submit" class="btn-register text-center">S'inscrire</button>
+                        </div>
+                      </form>
+                </div>
+            </div>
+        </div>
+        <!-- Register form end -->
+
+      </main>
+
+      <footer class="footer text-faded text-center py-5">
+        <div class="container">
+          <p class="m-0 small">Copyright &copy; Actus Sportives, created by Romain Aubry</p>
+        </div>
+      </footer>
+
+      <%- include("./partials/library-js") -%>
+</body>
+</html>

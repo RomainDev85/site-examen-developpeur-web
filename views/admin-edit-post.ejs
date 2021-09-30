@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actus Sportive</title>
+    <%- include("./partials/library-css") -%>
+    <!--CSS-->
+    <link rel="stylesheet" href="/css/admin-edit-post.css">
+    <%- include("./partials/seo") -%>
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+
+        <%- include("./partials/sidebar") -%>
+    
+        <!-- Page Content -->
+        <div id="admin-edit-post">
+    
+          <nav class="navbar navbar-expand-lg navbar-light bg-dark border-bottom">
+            <button class="btn btn-secondary border border-light" id="menu-toggle"><i class="fas fa-bars"></i></button>
+          </nav>
+        
+        <h1 class="title-page">Editer un article</h1>
+
+        <section class="container" style="margin-top: 20px;">
+            <%- include("./partials/message") -%>
+        </section>
+        
+        <!-- Show category start -->
+        <section class="show-category container">
+            <h1><%= post.title_post %></h1>
+            <h2><%= post.title_category %></h2>
+            <img class="mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="<%= post.image %>" alt="">
+            <p><%= post.content %></p>
+            <div class="d-flex flex-row justify-content-center">
+                <button type="button" data-toggle="modal" data-target="#change-picture" class="btn btn-primary">Modifier l'image</button>
+                <button type="button" data-toggle="modal" data-target="#change-content" class="btn btn-primary">Modifier information</button>
+            </div>
+        </section>
+        <!-- Show category end -->
+
+        <!-- Modal change image start -->
+        <div class="modal fade" id="change-picture" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form method="POST" action="/admin/edit/post/image/<%= post.id_post %>?_method=PUT" enctype="multipart/form-data">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Changer d'image</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="file" name="image">
+                    </div>
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                </form>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- Modal change image end -->
+
+        <!-- Modal edit content start -->
+        <div class="modal fade" id="change-content" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form method="POST" action="/admin/edit/post/content/<%= post.id_post %>?_method=PUT">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modifier information de l'article</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 d-flex flex-column">
+                                <label for="">Titre</label>
+                                <input type="text" name="title" value="<%= post.title_post %>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Category</label>
+                            <select class="form-control" id="exampleFormControlSelect1" style="border: 1px solid #6c757d;" name="category">
+                              <option value="null">Selectionner une categorie</option>
+                              <% categories.forEach(function(entry) {%>
+                                <option value="<%= entry.id%>"><%= entry.title%></option>
+                              <%});%>
+                            </select>
+                          </div>
+                        <div class="row">
+                            <div class="col-md-12 d-flex flex-column">
+                                <label for="">Description</label>
+                                <textarea id="" cols="30" rows="4" name="content"><%= post.content %></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                </form>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+            </div>
+        </div>
+          <!-- Modal edit content end -->
+
+
+
+        </div>
+        <!-- /#page-content-wrapper -->
+    
+      </div>
+      <!-- /#wrapper -->
+
+
+      <%- include("./partials/library-js") -%>
+    <script>
+        $("#menu-toggle").click(function(e) {
+          e.preventDefault();
+          $("#wrapper").toggleClass("toggled");
+        });
+
+        function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("accordionExample");
+        tr = document.getElementsByClassName("title-category");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i]
+            if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].parentElement.parentElement.parentElement.parentElement.style.display = "";
+            } else {
+                tr[i].parentElement.parentElement.parentElement.parentElement.style.display = "none";
+            }
+            }
+        }
+}
+      </script>
+</body>
+</html>

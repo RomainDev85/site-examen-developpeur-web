@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actus Sportive</title>
+    <%- include("./partials/library-css") -%>
+    <!--CSS-->
+    <link rel="stylesheet" href="/css/admin-category-list.css">
+    <%- include("./partials/seo") -%>
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+
+        <%- include("./partials/sidebar") -%>
+    
+        <!-- Page Content -->
+        <div id="admin-list-category">
+    
+          <nav class="navbar navbar-expand-lg navbar-light bg-dark border-bottom">
+            <button class="btn btn-secondary border border-light" id="menu-toggle"><i class="fas fa-bars"></i></button>
+          </nav>
+    
+          <!-- List category start -->
+          <section class="container list-post">
+            <div style="margin: 0 20px;">
+              <h1>Liste des categories</h1>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+
+                <!-- Filter category start -->
+                <div class="filter-category d-flex flex-column">
+                    <label for="filter-category"><i class="fas fa-search"></i> Filtrer les categories</label>
+                    <input type="text" id="myInput" name="filter-category" onkeyup="myFunction()" placeholder="Cherchez une categorie" style="max-width: 300px;">
+                </div>
+                <!-- Filter category end -->
+
+            <% categories.forEach(function(entry) {%>
+                <!-- One category start -->
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                    <span class="status-category"><i class="fas fa-circle text-success"></i></span>
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse<%= entry.id%>" aria-expanded="true" aria-controls="collapseOne">
+                      <ul class="user">
+                          <li class="title-category"><i class="fas fa-arrow-circle-down"></i> <%= entry.title%></li>
+                      </ul>
+                    </button>
+                  </h2>
+                </div>
+            
+                <div id="collapse<%= entry.id%>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-4 d-flex justify-content-center align-items-center">
+                          <img src="<%= entry.image %>" class="img-fluid rounded about-heading-img mb-3 mb-lg-0 shadow mb-5 bg-white rounded" alt="">
+                        </div>
+                        <div class="col-xl-8">
+                            <p><%= entry.content %></p>
+                        </div>
+                    </div>
+                    <div class="row btn d-flex justify-content-lg-around">
+                        <a class="edit" href="/admin/edit/category/<%= entry.id %>">Modifier la categorie</a>
+                        <form action="/admin/category/<%= entry.id%>?_method=DELETE" method="POST">
+                          <button class="delete">Supprimer</button>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- One category end -->
+            <%});%>
+
+            </div>
+        </section>
+    <!-- List category end -->
+
+
+
+        </div>
+        <!-- /#page-content-wrapper -->
+    
+      </div>
+      <!-- /#wrapper -->
+
+
+      <%- include("./partials/library-js") -%>
+    <script>
+        $("#menu-toggle").click(function(e) {
+          e.preventDefault();
+          $("#wrapper").toggleClass("toggled");
+        });
+
+        function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("accordionExample");
+        tr = document.getElementsByClassName("title-category");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i]
+            if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].parentElement.parentElement.parentElement.parentElement.style.display = "";
+            } else {
+                tr[i].parentElement.parentElement.parentElement.parentElement.style.display = "none";
+            }
+            }
+        }
+}
+      </script>
+</body>
+</html>

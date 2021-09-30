@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actus Sportive</title>
+    <%- include("./partials/library-css") -%>
+    <!--CSS-->
+    <link rel="stylesheet" href="/css/admin-user-list.css">
+    <%- include("./partials/seo") -%>
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+
+        <%- include("./partials/sidebar") -%>
+    
+        <!-- Page Content -->
+        <div id="admin-list-user">
+    
+          <nav class="navbar navbar-expand-lg navbar-light bg-dark border-bottom">
+            <button class="btn btn-secondary border border-light" id="menu-toggle"><i class="fas fa-bars"></i></button>
+          </nav>
+    
+          <!-- List user start -->
+          <section class="container list-user">
+            <div style="margin: 0 20px;">
+              <h1>Liste des utilisateurs</h1>
+            </div>
+
+            <div class="container">
+              <%- include("./partials/message") -%>
+            </div>
+
+            <div class="accordion" id="accordionExample">
+
+                <!-- Filter user start -->
+                <div class="filter-user d-flex flex-column">
+                    <label for="filter-user"><i class="fas fa-search"></i> Filtrer les utilisateurs</label>
+                    <input type="text" id="myInput" name="filter-user" onkeyup="myFunction()" placeholder="Cherchez un utilisateur" style="max-width: 300px;">
+                </div>
+                <!-- Filter user end -->
+
+            <% users.forEach(function(entry) {%>
+            <!-- One user start -->
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                    <% if (entry.status_user == 1) { %>
+                    <span class="status-user"><i class="fas fa-circle text-success"></i></span>
+                    <% } else { %>
+                    <span class="status-user"><i class="fas fa-circle text-warning"></i></span>
+                    <% } %>
+                  <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse<%= entry.id%>" aria-expanded="true" aria-controls="collapseOne">
+                      <ul class="user">
+                          <li class="name-user"><i class="fas fa-arrow-circle-down"></i> <%= entry.firstname %> <%= entry.lastname %></li>
+                          <li class="email"><%= entry.email %></li>
+                      </ul>
+                    </button>
+                  </h2>
+                </div>
+            
+                <div id="collapse<%= entry.id%>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <div class="row">
+                        <div class="col-xl-4 d-flex justify-content-center align-items-center">
+                          <img src="<%= entry.image %>" class="img-fluid rounded about-heading-img mb-3 mb-lg-0 shadow mb-5 bg-white rounded" alt="">
+                        </div>
+                        <div class="col-xl-2 d-flex align-items-center justify-content-center" style="padding: 10px 30px;">
+                          <p>Née le <%= entry.birthday %></p>
+                        </div>  
+                        <div class="col-xl-2 d-flex align-items-center justify-content-center">
+                            <ul class="status">
+                                <li><span><%= entry.nb_item %></span> Article crée</li>
+                                <li><span><%= entry.status %></span> Réaction d'article</i></li>
+                            </ul>
+                        </div>
+                        <div class="col-xl-4 btn">
+                            <!-- <a class="edit" href="">Modifier profil</a> -->
+                            <% if (entry.status_user == 1) { %>
+                                <a class="lock bg-warning" href="/admin/user/<%= entry.id%>/status">Bloqué</a>
+                            <% } else { %>
+                                <a class="lock bg-success" href="/admin/user/<%= entry.id%>/status">Débloqué</a>
+                            <% } %>
+                            <form action="/admin/delete/user/<%= entry.id%>?_method=DELETE" method="POST">
+                              <button type="submit" class="delete">Supprimer</button>
+                            </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!-- One user end -->
+            <%});%>
+
+            </div>
+        </section>
+    <!-- List user end -->
+
+
+
+        </div>
+        <!-- /#page-content-wrapper -->
+    
+      </div>
+      <!-- /#wrapper -->
+
+
+      <%- include("./partials/library-js") -%>
+    <script>
+        $("#menu-toggle").click(function(e) {
+          e.preventDefault();
+          $("#wrapper").toggleClass("toggled");
+        });
+
+        function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("accordionExample");
+        tr = document.getElementsByClassName("name-user");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i]
+            if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].parentElement.parentElement.parentElement.parentElement.style.display = "";
+            } else {
+                tr[i].parentElement.parentElement.parentElement.parentElement.style.display = "none";
+            }
+            }
+        }
+}
+      </script>
+</body>
+</html>
