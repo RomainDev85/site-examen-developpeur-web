@@ -1,1 +1,1 @@
-# Application examen (Développeur web et web mobile) en MVC NodeJS / MySQL
+Site web présenté à l'examen BTS Développeur web et mobile
